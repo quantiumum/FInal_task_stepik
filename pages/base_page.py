@@ -17,3 +17,9 @@ class BasePage():
         except (NoSuchElementException):
             return False
         return True
+    def is_current_link_true(self, true_string):
+        try:
+            true_string in self.browser.current_url, "Login link is not presented"
+        except:
+            return False
+        return True
