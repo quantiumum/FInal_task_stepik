@@ -13,12 +13,28 @@ class ProductPage(BasePage):
         self.check_price_basket()
         self.check_added_product_by_name()
 
+
+    def check_guest_cant_see_success_message_after_adding_product_to_basket(self):
+        self.add_product_to_basket()
+        alert_product_name = self.is_not_element_present(*ProductPageLocators.ALERT_PRODUCT_NAME)
+        assert alert_product_name == True, 'Product added to basket, success message exist'
+
+    def check_guest_cant_see_success_message(self):
+        alert_product_name = self.is_not_element_present(*ProductPageLocators.ALERT_PRODUCT_NAME)
+        assert alert_product_name == True, 'Product not added to basket, but success message exist'        
+
+    def check_message_disappeared_after_adding_product_to_basket(self):
+        self.add_product_to_basket()
+        alert_product_name = self.is_disappeared(*ProductPageLocators.ALERT_PRODUCT_NAME)
+        assert alert_product_name == True, 'Product added to basket, success message exist'
+
+
 #    def should_be_promo_in_link(self):
 #        assert self.is_current_link_true('promo=offer'), "Promo in link is not presented"
     def add_product_to_basket(self):
         btn_add_to_basket = self.browser.find_element(*ProductPageLocators.BTN_ADD_TO_BASKET)
         btn_add_to_basket.click()
-        
+
     def check_price_basket(self):
         product_price = self.get_text_in_element(*ProductPageLocators.PRODUCT_PRICE)
         basket_price = self.get_text_in_element(*ProductPageLocators.BASKET_PRICE)
@@ -28,5 +44,4 @@ class ProductPage(BasePage):
         product_name = self.get_text_in_element(*ProductPageLocators.PRODUCT_NAME)
         alert_product_name = self.get_text_in_element(*ProductPageLocators.ALERT_PRODUCT_NAME)
         assert product_name == alert_product_name, 'To basket added another product by name'
-
 
