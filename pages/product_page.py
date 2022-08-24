@@ -9,7 +9,7 @@ class ProductPage(BasePage):
     def check_add_product(self):
 #        self.should_be_promo_in_link()
         self.add_product_to_basket()
-        self.solve_quiz_and_get_code()
+        #self.solve_quiz_and_get_code()
         self.check_price_basket()
         self.check_added_product_by_name()
 

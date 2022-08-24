@@ -49,6 +49,14 @@ class BasePage():
             return False
         return self.browser.find_element(how, what).text
 
+    def write_text_in_input(self, how, what, value):
+        try:
+            self.elem = self.browser.find_element(how, what)
+            self.elem.send_keys(value)
+        except (NoSuchElementException):
+            return False
+        return True
+
     def is_not_element_present(self, how, what, timeout=4):
         try:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
@@ -75,3 +83,6 @@ class BasePage():
         basket_link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
         basket_link.click()
 
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                     " probably unauthorised user"
