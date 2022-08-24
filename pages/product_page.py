@@ -13,7 +13,6 @@ class ProductPage(BasePage):
         self.check_price_basket()
         self.check_added_product_by_name()
 
-
     def check_guest_cant_see_success_message_after_adding_product_to_basket(self):
         self.add_product_to_basket()
         alert_product_name = self.is_not_element_present(*ProductPageLocators.ALERT_PRODUCT_NAME)
